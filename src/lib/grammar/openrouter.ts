@@ -89,7 +89,7 @@ Return the results as a JSON object with an "errors" array containing all identi
         'X-Title': 'Grammar Checker',
       },
       body: JSON.stringify({
-        model: 'meta-llama/llama-3.1-8b-instruct:free',
+        model: 'xiaomi/mimo-v2-flash:free',
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: userPrompt },
