@@ -24,6 +24,56 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {process.env.NODE_ENV === 'development' && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                // Suppress HMR and dev console messages
+                (function() {
+                  const originalLog = console.log;
+                  const originalInfo = console.info;
+                  const originalWarn = console.warn;
+
+                  console.log = function(...args) {
+                    const msg = args.join(' ');
+                    if (msg.includes('[HMR]') ||
+                        msg.includes('Fast Refresh') ||
+                        msg.includes('Compiled') ||
+                        msg.includes('hot update') ||
+                        msg.includes('React DevTools') ||
+                        msg.includes('Download the React')) {
+                      return;
+                    }
+                    originalLog.apply(console, args);
+                  };
+
+                  console.info = function(...args) {
+                    const msg = args.join(' ');
+                    if (msg.includes('[HMR]') ||
+                        msg.includes('Fast Refresh') ||
+                        msg.includes('webpack') ||
+                        msg.includes('React DevTools') ||
+                        msg.includes('Download the React')) {
+                      return;
+                    }
+                    originalInfo.apply(console, args);
+                  };
+
+                  console.warn = function(...args) {
+                    const msg = args.join(' ');
+                    if (msg.includes('[HMR]') ||
+                        msg.includes('Fast Refresh')) {
+                      return;
+                    }
+                    originalWarn.apply(console, args);
+                  };
+                })();
+              `,
+            }}
+          />
+        )}
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
