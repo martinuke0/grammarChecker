@@ -12,7 +12,7 @@ export const useGrammarStore = create<GrammarStoreState>()(
   persist(
     (set) => ({
       // State
-      provider: 'languagetool', // Default to free option
+      provider: 'openrouter', // Default to OpenRouter
       language: 'en-US',
       autoCheck: true,
       autoCorrect: false, // Default to manual correction
